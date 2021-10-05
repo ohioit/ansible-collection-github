@@ -1,0 +1,28 @@
+---
+- name: Include the vars/args.yaml
+  include_vars:
+    file: vars/testing.yaml
+    name: included_one_file
+
+- name: Check to see arguments are defined
+  assert:
+    that:
+      - "included_one_file['token'] == 'token' "
+      - "included_one_file['organization_name'] == 'organization name' "
+
+- assert:
+    that:
+      - "'{{ token }}' is defined"
+      - "'{{ organization_name }}' is defined"
+
+- name: Run this command
+  ohioit.ansible-collection-github.collaborator_information:
+    token: "{{ token }}"
+    organization_name: "{{ organization_name }}"
+    repos:
+      - "ansible-collection-github"
+  register: result
+
+- assert:
+    that:
+      result.changed is false

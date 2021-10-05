@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  tasks:
+    - name: "Integration testing repository information module"
+      script: ./targets/repository_information/{{ item }}.py TOKEN ORGANIZATION_NAME
+      loop:
+        - repository_information_regular
+      args:
+        executable: Python3
+      register: result
+
+    - assert:
+        that:
+          result is changed
+
+    - name: "Integration testing repository information module enterprise"
+      script: ./targets/repository_information/{{ item }}.py TOKEN ORGANIZATION_NAME ENTERPRISE_URL
+      loop:
+        - repository_information_enterprise
+      args:
+        executable: Python3
+      register: result
+
+    - assert:
+        that:
+          result is changed

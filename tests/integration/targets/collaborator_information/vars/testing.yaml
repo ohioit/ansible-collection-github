@@ -1,0 +1,7 @@
+---
+token: "token"
+organization_name: "organization name"
+enterprise_token: "enterprise token"
+enterprise_organization_name: "enterprise organization name"
+enterprise_url: "enterprise url"
+"new": true
