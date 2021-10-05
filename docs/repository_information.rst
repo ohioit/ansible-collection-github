@@ -17,7 +17,7 @@ Version added: 0.0.1
 
 Synopsis
 --------
-- Retrieve Github organization repository information in the form of list of dictionaries to further use in other modules.
+- Retrieve Github organization repository information in the form of .json to further use in other modules.
 
 
 
@@ -67,22 +67,6 @@ Parameters
                         <div>Organization provided by users.</div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-"></div>
-                    <b>enterprise_url</b>
-                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
-                    <div style="font-size: small">
-                        <span style="color: purple">string</span>
-                    </div>
-                </td>
-                <td>
-                        <div>Unecessary in event of user token</div>
-                </td>
-                <td>
-                        <div>Enterprise url is necessary when module is recieving an enterprise token</div>
-                </td>
-            </tr>
     </table>
     <br/>
 
@@ -94,20 +78,12 @@ Examples
 
 .. code-block:: yaml
 
-    - name: "List GitHub repositories within non-enterprise org"
-      ohioit.github.repository_information:
-        token: "token"
-        organization_name: "org_name"
-      register: result
- 
-    - name: "List GitHub repositories within enterprise org"
-      ohioit.github.repository_information:
-        token: "token"
-        organization_name: "org_name"
-        enterprise_url: "https://github.com/put/your/url/here"
-      register: result
-      
-     
+    - name: "List GitHub repositories within org"
+        import_role:
+          name: ohioit.github.repository_info
+        vars:
+          github_token: "token"
+          org_name: "organization_name"
 
 Return Values
 -------------
@@ -124,22 +100,19 @@ Common return values are documented `here <https://docs.ansible.com/ansible/late
             <tr>
                 <td colspan="2">
                     <div class="ansibleOptionAnchor" id="return-"></div>
-                    <b>Result.repos</b>
+                    <b>Result</b>
                     <a class="ansibleOptionLink" href="#return-" title="Permalink to this return value"></a>
                     <div style="font-size: small">
-                      <span style="color: purple">List</span>
+                      <span style="color: purple">.json</span>
                     </div>
                 </td>
                 <td>always</td>
                 <td>
-                            <div>The List data structure is composed of the dictionaries containing repos along with their names and other useful information.</div>
+                            <div>The .json data structure is composed of the repos along with their names and other useful information.</div>
                     <br/>
                         <div style="font-size: smaller"><b>Sample:</b></div>
                         <div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">
-                          <pre><code>[
-      {
-      "name": repo.name
-      "full_name" repo.full_name
+                          <pre><code>"repo": repo.name = {
       "owner": repo.owner.login,
       "description": repo.description,
       "private": repo.private,
@@ -151,12 +124,7 @@ Common return values are documented `here <https://docs.ansible.com/ansible/late
       "default_branch": repo.default_branch,
       "hooks_url": repo.hooks_url,
       "clone_url": repo.clone_url
-     },
-     {
-     ...
-     },
-     ...
-    ]</code></pre>
+     }</code></pre>
                         </div>
                 </td>
             </tr>

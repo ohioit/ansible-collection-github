@@ -20,5 +20,4 @@ jobs:
         pip install pyGitHub
     - name: Analysing the code with pylint
       run: |
-        find . -type f -name "*.py" | xargs pylint --exit-zero
-        
+        find . -type f -name "*.py" | xargs pylint --exit-zero --disable=C0111
