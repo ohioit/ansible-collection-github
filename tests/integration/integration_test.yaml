@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  tasks:
+
+    - include_vars: ./vars/args.yaml
+
+    - name: "Integration testing repository information module"
+      script: ./targets/repository_information/{{ item }}.py "{{ token }}" "{{ organization_name }}"
+      loop:
+        - repository_information_regular
+      args:
+        executable: Python3
+      register: result
+      changed_when: False
+
+    - assert:
+        that:
+          result.changed is false
+
+    - name: "Integration testing repository information module enterprise"
+      script: ./targets/repository_information/{{ item }}.py "{{ enterprise_token }}" "{{ enterprise_organization_name }}" "{{ enterprise_url }}"
+      loop:
+        - repository_information_enterprise
+      args:
+        executable: Python3
+      register: result
+      changed_when: False
+
+    - assert:
+        that:
+          result.changed is false
+          
