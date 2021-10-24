@@ -28,7 +28,7 @@ options:
     token:
         description:
             - GitHub API token used to retrieve information
-                about repositories to which a user has access to
+                about repositories to which a user has access.
         required: true
         type: str
     enterprise_url:
@@ -192,11 +192,13 @@ def run_module():
             "hooks_url": repo.hooks_url,
             "clone_url": repo.clone_url
         }
+
         if len(module.params["enterprise_url"]) == 0:
             current_repo_dict["visibility"] = repo.raw_data["visibility"]
             current_repo_dict["is_template"] = repo.raw_data["is_template"]
 
         output.append(current_repo_dict)
+
     if module.check_mode:
         return result
 

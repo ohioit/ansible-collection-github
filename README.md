@@ -39,6 +39,7 @@ pip install PyGithub
 ## Usage
 
 ### Repository Information (From organization)
+
 ```
   - name: "List GitHub repositories within a non-enterprise organization"
     ohioit.github.repository_information:
