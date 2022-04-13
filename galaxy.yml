@@ -3,7 +3,11 @@ name: github
 version: 0.0.1
 readme: README.md
 authors:
-  - Robert Foreman <foremar1@ohio.edu>
+  - Robert Foreman   <foremar1@ohio.edu>
+  - Bradley Golski   <bg881717@ohio.edu>
+  - Jacob Eicher     <je652917@ohio.edu>
+  - Tyler Zwolenik   <tz440017@ohio.edu>
+  - Nolan Khounborin <nk479217@ohio.edu>
 description: Collection of modules for managing GitHub repository settings
 license_file: LICENSE
 tags:

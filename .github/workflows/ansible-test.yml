@@ -1,0 +1,42 @@
+name: ansible-test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ansible_collections/ohioit/github
+
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/ohioit/github
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Ansible
+        run: pip install ansible==5.5
+        
+      - name: Install PyGithub
+        run: pip install PyGithub==1.55
+
+      - name: Perform sanity testing with ansible-test on module files
+        run: ansible-test sanity --python 3.9 --skip-test import --skip-test ansible-doc --skip-test validate-modules plugins/modules/*
+          
+      - name: Perform unit testing with ansible-test
+        uses: ansible-community/ansible-test-gh-action@release/v1
+        with:
+          ansible-core-version: stable-2.12
+          pre-test-cmd: echo This runs before the ansible-test invocation
+          python-version: 3.9
+          target-python-version: 3.9
+          testing-type: units
+          test-deps: >-
+            ansible.netcommon
+            ansible.utils
