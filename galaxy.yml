@@ -4,6 +4,7 @@ version: 0.0.1
 readme: README.md
 authors:
   - Robert Foreman <foremar1@ohio.edu>
+  - Bradley Golski <bg881717@ohio.edu>
 description: Collection of modules for managing GitHub repository settings
 license_file: LICENSE
 tags:
